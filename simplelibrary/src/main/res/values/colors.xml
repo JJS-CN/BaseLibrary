@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/White</color>
+    <color name="colorPrimaryDark">@color/White</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="EEE">#EEEEEE</color>
+    <color name="Hint">#999999</color><!--提示文本-->
+    <color name="Line">#F1F1F1</color><!--分割线-->
+    <color name="Text">#FF666666</color><!--正常文本-->
+    <color name="TextDark">#FF444444</color><!--深色文本-->
+    <color name="TextLight">#FFCCCCCC</color><!--浅色文本-->
+    <color name="colorButton">#FF4081</color>
+
+    <color name="colorTitleText">#312E27</color><!--标题栏文本颜色-->
+    <color name="background">#F5F5F5</color><!--activity背景颜色-->
+
+    <color name="Transparent">#00000000</color><!--透明色-->
+    <color name="Black">#1B1B1B</color><!--黑色-->
+    <color name="White">#FFFFFF</color><!--白色-->
+    <color name="Red">#FF0000</color><!--红色-->
+    <color name="Yellow">#FFFF00</color><!--黄色 -->
+    <color name="Gold">#FFD700</color><!--金色 -->
+    <color name="Pink">#FFC0CB</color><!--粉红色 -->
+    <color name="Orange">#FFA500</color><!--橙色 -->
+    <color name="Orchid">#DA70D6</color><!--淡紫色 -->
+    <color name="Beige">#F5F5DC</color><!--米色 -->
+    <color name="Tan">#D2B48C</color><!--茶色 -->
+    <color name="Cyan">#00FFFF</color><!--青色 -->
+    <color name="Green">#008000</color><!--绿色 -->
+    <color name="Silver">#C0C0C0</color><!--银色 -->
+    <color name="Blue">#007AFF</color><!--蓝色-->
+
+
+</resources>
