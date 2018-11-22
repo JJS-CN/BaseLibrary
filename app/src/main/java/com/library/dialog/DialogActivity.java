@@ -1,6 +1,5 @@
 package com.library.dialog;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -12,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.blankj.utilcode.constant.PermissionConstants;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.library.R;
@@ -21,10 +21,12 @@ import com.simplelibrary.dialog.BaseBottomDialog;
 import com.simplelibrary.dialog.BaseDialog;
 import com.simplelibrary.dialog.InputDialog;
 import com.simplelibrary.sp.BaseUserSp;
+import com.simplelibrary.utils.ChoosePhotoUtils;
+
+import java.io.File;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
 
 
 @NeedLogin
@@ -32,7 +34,7 @@ import butterknife.OnClick;
 public class DialogActivity extends AppCompatActivity {
     DialogDemo dialogDemo;
     BottomDialogDemo mBottomDialogDemo;
-
+    ChoosePhotoUtils choose;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +44,15 @@ public class DialogActivity extends AppCompatActivity {
         dialogDemo.updateData("修改", Color.MAGENTA);
         mBottomDialogDemo = new BottomDialogDemo();
         mBottomDialogDemo.updateData("修改22232", Color.MAGENTA);
-        SPUtils.getInstance(BaseUserSp.KEY_User).put(BaseUserSp.KEY_User,"111");
+        SPUtils.getInstance(BaseUserSp.KEY_User).put(BaseUserSp.KEY_User, "111");
+         choose = new ChoosePhotoUtils()
+                .setChooseListener(new ChoosePhotoUtils.OnChooseListener() {
+                    @Override
+                    public void onChoose(File originalFile, File compressFile) {
+                        LogUtils.e(originalFile.getPath()+"=="+compressFile.getPath());
+                    }
+                })
+                 .setAspectXY(2,1);
     }
 
     @OnClick({R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5})
@@ -58,8 +68,8 @@ public class DialogActivity extends AppCompatActivity {
                 }).setLayoutId(R.layout.item_dialog).show(this);
                 break;
             case R.id.btn2:
-                startActivity(new Intent(this,DialogActivity.class));
-              //  dialogDemo.show(this);
+                choose.requestAlbum();
+                //  dialogDemo.show(this);
                 break;
             case R.id.btn3:
                 new BaseBottomDialog().setLayoutId(R.layout.item_dialog)

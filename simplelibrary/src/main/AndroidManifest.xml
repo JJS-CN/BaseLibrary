@@ -18,11 +18,9 @@
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/UCropActivityTheme"
             />
 
-        <activity
-            android:name=".activity.ChoosePhotoActivity"
-            android:theme="@style/TransitionTheme"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -52,6 +50,12 @@
         <activity
             android:name=".activity.PermissionFailActivity"
             android:theme="@style/PermissionFailTheme"/>
+        <activity
+            android:name=".utils.ChoosePhotoUtils$ChoosePhotoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:multiprocess="true"
+            android:theme="@style/TransitionTheme"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
     </application>
 
 </manifest>
