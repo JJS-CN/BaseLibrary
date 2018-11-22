@@ -15,6 +15,9 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.library.R;
+import com.library.base.ApiClient;
+import com.library.base.BaseEntity;
+import com.library.base.RxObserver;
 import com.simplelibrary.annotation.NeedLogin;
 import com.simplelibrary.annotation.NeedPermission;
 import com.simplelibrary.dialog.BaseBottomDialog;
@@ -31,10 +34,11 @@ import butterknife.OnClick;
 
 @NeedLogin
 @NeedPermission(value = {PermissionConstants.CAMERA, PermissionConstants.STORAGE})
-public class DialogActivity extends AppCompatActivity {
+public class DialogActivity extends AppCompatActivity  {
     DialogDemo dialogDemo;
     BottomDialogDemo mBottomDialogDemo;
     ChoosePhotoUtils choose;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,14 +49,15 @@ public class DialogActivity extends AppCompatActivity {
         mBottomDialogDemo = new BottomDialogDemo();
         mBottomDialogDemo.updateData("修改22232", Color.MAGENTA);
         SPUtils.getInstance(BaseUserSp.KEY_User).put(BaseUserSp.KEY_User, "111");
-         choose = new ChoosePhotoUtils()
+        choose = new ChoosePhotoUtils()
                 .setChooseListener(new ChoosePhotoUtils.OnChooseListener() {
                     @Override
                     public void onChoose(File originalFile, File compressFile) {
-                        LogUtils.e(originalFile.getPath()+"=="+compressFile.getPath());
+                        LogUtils.e(originalFile.getPath() + "==" + compressFile.getPath());
                     }
                 })
-                 .setAspectXY(2,1);
+                .setAspectXY(2, 1);
+
     }
 
     @OnClick({R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5})
@@ -68,7 +73,13 @@ public class DialogActivity extends AppCompatActivity {
                 }).setLayoutId(R.layout.item_dialog).show(this);
                 break;
             case R.id.btn2:
-                choose.requestAlbum();
+                ApiClient.getApi().login("18607917251")
+                        .subscribe(new RxObserver<BaseEntity>(null) {
+                            @Override
+                            protected void onSuccess(BaseEntity data) {
+
+                            }
+                        });
                 //  dialogDemo.show(this);
                 break;
             case R.id.btn3:

@@ -14,7 +14,7 @@ import com.google.gson.reflect.TypeToken;
 public abstract class BaseUserSp<T> {
     private SPUtils mSPUtils;
     public static final String KEY_User = "BaseUserSp";
-    private static final String KEY_Token = "Token";
+    public static final String KEY_Token = "Token";
     private static final String KEY_Account = "Account";
 
     public BaseUserSp() {

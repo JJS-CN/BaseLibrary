@@ -14,8 +14,10 @@ import com.simplelibrary.hook.HookFactory;
  */
 
 public class BaseApplication extends Application {
-    public boolean isDebug = true;
-    public static Class loginAct;
+    public static boolean isDebug = true;
+    public Class loginAct;
+    public static String Host_Http = "";
+    public static String Host_Photo = "";
 
     @Override
     public void onCreate() {

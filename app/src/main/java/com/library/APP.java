@@ -11,6 +11,7 @@ import com.simplelibrary.base.BaseApplication;
 public class APP extends BaseApplication {
     {
         loginAct = LoginActivity.class;
+        Host_Http="http://www.oajxs.com/";
     }
 
     {
