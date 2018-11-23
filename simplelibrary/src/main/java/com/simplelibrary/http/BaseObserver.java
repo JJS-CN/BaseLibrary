@@ -2,7 +2,7 @@ package com.simplelibrary.http;
 
 import com.simplelibrary.Const;
 import com.simplelibrary.base.BaseApplication;
-import com.simplelibrary.mvp.IMvpContract;
+import com.simplelibrary.mvp.IContract;
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
@@ -17,9 +17,9 @@ import retrofit2.HttpException;
  */
 
 public abstract class BaseObserver<T extends IBaseEntity> implements Observer<T> {
-    private IMvpContract.IView mView;
+    private IContract.IView mView;
 
-    public BaseObserver(IMvpContract.IView mView) {
+    public BaseObserver(IContract.IView mView) {
         this.mView = mView;
     }
 
@@ -58,7 +58,6 @@ public abstract class BaseObserver<T extends IBaseEntity> implements Observer<T>
         } else {
             updateStatusView(Const.Http.Status_ERROR);
         }
-
         onError(code, "网络请求失败" + code);
     }
 

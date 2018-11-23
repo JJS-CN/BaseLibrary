@@ -1,7 +1,7 @@
 package com.library.base;
 
 import com.simplelibrary.http.BaseObserver;
-import com.simplelibrary.mvp.IMvpContract;
+import com.simplelibrary.mvp.IContract;
 
 /**
  * 说明：实际是对泛型的进一步限制
@@ -10,7 +10,7 @@ import com.simplelibrary.mvp.IMvpContract;
 
 public abstract class RxObserver<T extends BaseEntity> extends BaseObserver<T> {
 
-    public RxObserver(IMvpContract.IView mView) {
+    public RxObserver(IContract.IView mView) {
         super(mView);
     }
 

@@ -5,7 +5,7 @@ package com.simplelibrary.mvp;
  * Created by jjs on 2018/11/22
  */
 
-public class BasePersenter<T extends IMvpContract.IView> implements IMvpContract.IPersenter {
+public class BasePersenter<T extends IContract.IView> implements IContract.IPersenter {
     protected T mView;
 
     @Override

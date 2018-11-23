@@ -49,8 +49,9 @@ dependencies {
     api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     api 'com.squareup.retrofit2:converter-gson:2.3.0'
     //内存泄漏管理
-    api 'com.uber.autodispose:autodispose:1.0.0'
-    api 'com.uber.autodispose:autodispose-android-archcomponents:1.0.0'
+    //api 'com.uber.autodispose:autodispose:1.0.0'
+    //api 'com.uber.autodispose:autodispose-android:1.0.0'
+    api 'com.uber.autodispose:autodispose-android-archcomponents:0.8.0'
     //常用工具类
     api 'com.blankj:utilcode:1.22.0'
     api 'com.blankj:rxbus:1.5'
