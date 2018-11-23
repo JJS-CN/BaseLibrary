@@ -18,6 +18,7 @@ public class BaseApplication extends Application {
     public Class loginAct;
     public static String Host_Http = "";
     public static String Host_Photo = "";
+    public static boolean Default_StatusBarDarkFont = false;
 
     @Override
     public void onCreate() {

@@ -1,9 +1,7 @@
 package com.library.dialog;
 
 import android.graphics.Color;
-import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,30 +18,29 @@ import com.library.base.BaseEntity;
 import com.library.base.RxObserver;
 import com.simplelibrary.annotation.NeedLogin;
 import com.simplelibrary.annotation.NeedPermission;
+import com.simplelibrary.base.BaseActivity;
 import com.simplelibrary.dialog.BaseBottomDialog;
 import com.simplelibrary.dialog.BaseDialog;
 import com.simplelibrary.dialog.InputDialog;
+import com.simplelibrary.mvp.BasePersenter;
+import com.simplelibrary.mvp.IContract;
 import com.simplelibrary.sp.BaseUserSp;
 import com.simplelibrary.utils.ChoosePhotoUtils;
 
 import java.io.File;
 
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
 @NeedLogin
 @NeedPermission(value = {PermissionConstants.CAMERA, PermissionConstants.STORAGE})
-public class DialogActivity extends AppCompatActivity  {
+public class DialogActivity extends BaseActivity {
     DialogDemo dialogDemo;
     BottomDialogDemo mBottomDialogDemo;
     ChoosePhotoUtils choose;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+    protected void initView() {
         dialogDemo = new DialogDemo();
         dialogDemo.updateData("修改", Color.MAGENTA);
         mBottomDialogDemo = new BottomDialogDemo();
@@ -57,7 +54,16 @@ public class DialogActivity extends AppCompatActivity  {
                     }
                 })
                 .setAspectXY(2, 1);
+    }
 
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected BasePersenter<IContract.IView> createPersenter() {
+        return null;
     }
 
     @OnClick({R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5})

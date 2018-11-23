@@ -68,4 +68,6 @@ dependencies {
     api 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:5.1.4'
 
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
+
+    api 'com.gyf.immersionbar:immersionbar:2.3.3-beta04'
 }
