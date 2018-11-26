@@ -3,7 +3,7 @@
     <style name="TransitionTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowBackground">@color/Transparent</item>
-        <!--打开透明，否则显示黑色-->
+        <!--打开透明，否则显示黑色 但是会极大的增加内存消耗。window不会被回收-->
         <item name="android:windowIsTranslucent">true</item>
     </style>
 

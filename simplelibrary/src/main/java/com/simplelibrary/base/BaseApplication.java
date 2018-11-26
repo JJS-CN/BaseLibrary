@@ -6,6 +6,7 @@ import android.os.StrictMode;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.Utils;
+import com.simplelibrary.BaseConst;
 import com.simplelibrary.hook.HookFactory;
 
 /**
@@ -13,26 +14,28 @@ import com.simplelibrary.hook.HookFactory;
  * Created by jjs on 2018/11/21
  */
 
-public class BaseApplication extends Application {
-    public static boolean isDebug = true;
-    public Class loginAct;
-    public static String Host_Http = "";
-    public static String Host_Photo = "";
-    public static boolean Default_StatusBarDarkFont = false;
+public abstract class BaseApplication extends Application {
+
+    protected abstract BaseConst initConst();
 
     @Override
     public void onCreate() {
         super.onCreate();
-        if (isDebug) {
+        BaseConst bConst = initConst();
+        if (bConst==null){
+            throw  new NullPointerException("Your must init Const, in the Application!!");
+        }
+
+        if (BaseConst.Default.isDebug) {
             //开启严苛模式，系统将在运行时严格的对io等操作进行检查。所以只在开发模式开启
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());
             StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
         }
         Utils.init(this);
-        LogUtils.getConfig().setLogSwitch(isDebug);
-        if (loginAct != null) {
+        LogUtils.getConfig().setLogSwitch(BaseConst.Default.isDebug);
+        if (BaseConst.Default.loginAct != null) {
             // hook 登录跳转
-            ComponentName componentName = new ComponentName(getPackageName(), loginAct.getName());
+            ComponentName componentName = new ComponentName(getPackageName(), BaseConst.Default.loginAct.getName());
             HookFactory.hookIActivityManager(Thread.currentThread().getContextClassLoader()
                     , componentName);
         }

@@ -1,7 +1,6 @@
 package com.simplelibrary.http;
 
-import com.simplelibrary.Const;
-import com.simplelibrary.base.BaseApplication;
+import com.simplelibrary.BaseConst;
 import com.simplelibrary.mvp.IContract;
 
 import io.reactivex.Observer;
@@ -17,16 +16,32 @@ import retrofit2.HttpException;
  */
 
 public abstract class BaseObserver<T extends IBaseEntity> implements Observer<T> {
-    private IContract.IView mView;
+    protected IContract.IView mView;
+    protected boolean hasToast = true;
+    protected boolean hasLoading = true;
+    protected boolean hasHttpStatus = false;
 
     public BaseObserver(IContract.IView mView) {
         this.mView = mView;
     }
 
+    public BaseObserver(IContract.IView mView, boolean hasLoading) {
+        this.mView = mView;
+        this.hasToast = hasLoading;
+        this.hasLoading = hasLoading;
+    }
+
+    public BaseObserver(IContract.IView mView, boolean hasLoading, boolean hasHttpStatus) {
+        this.mView = mView;
+        this.hasToast = hasLoading;
+        this.hasLoading = hasLoading;
+        this.hasHttpStatus = hasHttpStatus;
+    }
+
     @Override
     public void onSubscribe(@NonNull Disposable d) {
         showLoadDialog();
-        updateStatusView(Const.Http.Status_LOADING);
+        updateStatusView(BaseConst.HttpStatus.Status_LOADING);
     }
 
     @Override
@@ -34,39 +49,36 @@ public abstract class BaseObserver<T extends IBaseEntity> implements Observer<T>
         if (t.isSuccess()) {
             onSuccess(t);
             if (t.getList() != null && t.getList().size() == 0) {
-                updateStatusView(Const.Http.Status_NOTHING);
+                updateStatusView(BaseConst.HttpStatus.Status_NOTHING);
             } else {
-                updateStatusView(Const.Http.Status_SUCCESS);
+                updateStatusView(BaseConst.HttpStatus.Status_SUCCESS);
             }
 
         } else {
-            updateStatusView(Const.Http.Status_ERROR);
             onError(t.code(), t.message());
         }
     }
 
     @Override
     public void onError(@NonNull Throwable e) {
-        if (BaseApplication.isDebug) {
+        if (BaseConst.Default.isDebug) {
             e.printStackTrace();
         }
         int code = 1;
-
+        updateStatusView(BaseConst.HttpStatus.Status_ERROR);
         if (e instanceof HttpException) {
             code = ((HttpException) e).code(); // 状态码 404 500 502
-            updateStatusView(Const.Http.Status_NETWORK);
+            updateStatusView(BaseConst.HttpStatus.Status_NETWORK);
         } else {
-            updateStatusView(Const.Http.Status_ERROR);
+            updateStatusView(BaseConst.HttpStatus.Status_ERROR);
         }
         onError(code, "网络请求失败" + code);
     }
 
     protected void onError(int status, String msg) {
         dismissLoadDialog();
-        if (hasToast()) {
-            if (mView != null) {
-                mView.showShortToast(msg);
-            }
+        if (hasToast && mView != null) {
+            mView.showShortToast(msg);
         }
     }
 
@@ -76,7 +88,7 @@ public abstract class BaseObserver<T extends IBaseEntity> implements Observer<T>
     }
 
     protected void showLoadDialog() {
-        if (mView != null && hasLoading()) {
+        if (mView != null && hasLoading) {
             mView.showLoadDialog();
         }
     }
@@ -90,20 +102,15 @@ public abstract class BaseObserver<T extends IBaseEntity> implements Observer<T>
     protected abstract void onSuccess(T data);
 
 
-    private void updateStatusView(int status) {
-        if (mView != null) {
+    protected void updateStatusView(int status) {
+        if (mView != null && hasHttpStatus) {
             mView.showHttpStatusView(status);
         }
     }
 
-    /**
-     * 外部重写此方法，来控制是否展示错误提示；
-     */
-    protected boolean hasToast() {
-        return true;
+
+    protected void resetHasToast() {
+
     }
 
-    protected boolean hasLoading() {
-        return true;
-    }
 }

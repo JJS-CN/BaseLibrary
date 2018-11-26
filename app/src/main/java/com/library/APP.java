@@ -1,6 +1,6 @@
 package com.library;
 
-import com.library.base.LoginActivity;
+import com.simplelibrary.BaseConst;
 import com.simplelibrary.base.BaseApplication;
 
 /**
@@ -9,12 +9,8 @@ import com.simplelibrary.base.BaseApplication;
  */
 
 public class APP extends BaseApplication {
-    {
-        loginAct = LoginActivity.class;
-        Host_Http="http://www.oajxs.com/";
-    }
-
-    {
-        isDebug = true;
+    @Override
+    public BaseConst initConst() {
+        return new Const();
     }
 }

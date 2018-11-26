@@ -4,7 +4,6 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Build;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.PermissionUtils;
@@ -24,7 +23,6 @@ import java.lang.reflect.Proxy;
 
 public class IActivityManagerHandler extends BaseClassHandler {
 
-    private static final String TAG = "IActivityManagerHandler";
     private ComponentName mComponentName;
 
     //外部传入APP的login页面
@@ -37,7 +35,6 @@ public class IActivityManagerHandler extends BaseClassHandler {
     public void hook(BaseHook baseHook, ClassLoader classLoader) throws Throwable {
 
         if (!(baseHook instanceof BaseProxyHook)) {
-            Log.e(TAG, "BaseProxyHook");
             return;
         }
 
@@ -52,7 +49,6 @@ public class IActivityManagerHandler extends BaseClassHandler {
         }
         gDefault.setAccessible(true);
         Object iAmSingleton = gDefault.get(null);
-        Log.e(TAG, "initHook: " + iAmSingleton);
 
         Class<?> singleTonClass = Class.forName("android.util.Singleton");
         Field mInstance = singleTonClass.getDeclaredField("mInstance");
@@ -68,16 +64,11 @@ public class IActivityManagerHandler extends BaseClassHandler {
                 , baseProxyHook);
 
         mInstance.set(iAmSingleton, mAms);
-
-        Log.e(TAG, "initHook: " + ams);
-
-
     }
 
 
     @Override
     protected void initMethod() {
-
         addMethod("startActivity", new startActivityHandler());
     }
 
@@ -125,7 +116,6 @@ public class IActivityManagerHandler extends BaseClassHandler {
 
                                         @Override
                                         public void onDenied() {
-                                            //todo 授权失败，跳转透明activity。模拟dialog弹窗引导用户去app设置页给予权限
                                             ComponentName componentName = new ComponentName(AppUtils.getAppPackageName(), PermissionFailActivity.class.getName());
                                             Intent intent = new Intent();
                                             intent.putExtra("intent", arg);

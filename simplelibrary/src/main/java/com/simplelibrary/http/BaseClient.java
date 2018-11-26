@@ -1,7 +1,9 @@
 package com.simplelibrary.http;
 
+import android.text.TextUtils;
+
 import com.blankj.utilcode.util.Utils;
-import com.simplelibrary.base.BaseApplication;
+import com.simplelibrary.BaseConst;
 import com.simplelibrary.http.adapter.DlcRxJavaFactory;
 import com.simplelibrary.http.converter.DlcGsonConverterFactory;
 import com.simplelibrary.http.cookie.NovateCookieManger;
@@ -38,7 +40,7 @@ public abstract class BaseClient<T> {
     public T create(Class<T> service) {
         if (api == null) {
             api = new Retrofit.Builder()
-                    .baseUrl(BaseApplication.Host_Http)
+                    .baseUrl(BaseConst.Default.isDebug && !TextUtils.isEmpty(BaseConst.Default.Host_Http_Debug) ? BaseConst.Default.Host_Http_Debug : BaseConst.Default.Host_Http)
                     .client(buildOkHttp())
                     .addCallAdapterFactory(DlcRxJavaFactory.getInstance())
                     .addConverterFactory(DlcGsonConverterFactory.create())
