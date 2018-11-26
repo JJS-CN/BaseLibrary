@@ -1,12 +1,17 @@
 package com.simplelibrary.dialog;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -18,9 +23,10 @@ import com.chad.library.adapter.base.BaseViewHolder;
  */
 
 public class BaseDialog extends DialogFragment {
-    private int mLayoutId;
+    protected int mLayoutId;
     private OnCustomListener mCustomListener;
     public BaseViewHolder mViewHolder;
+    private boolean isBottom;
 
 
     /**
@@ -68,4 +74,35 @@ public class BaseDialog extends DialogFragment {
     public void show(FragmentActivity activity) {
         super.show(activity.getSupportFragmentManager(), "");
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (isBottom) {
+            Window window = getDialog().getWindow();
+            WindowManager.LayoutParams params = window.getAttributes();
+            params.gravity = Gravity.BOTTOM;
+            params.width = WindowManager.LayoutParams.MATCH_PARENT;
+            window.setAttributes(params);
+        }
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+    }
+
+    public void hasBottomUP(boolean isBottom){
+        this.isBottom = isBottom;
+    }
+
+
+
+//    public void hasBottomDialog() {
+//        Window window = getDialog().getWindow();
+//        WindowManager.LayoutParams params = window.getAttributes();
+//        params.gravity = Gravity.BOTTOM;
+//        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+//        window.setAttributes(params);
+//        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//    }
+
+
 }

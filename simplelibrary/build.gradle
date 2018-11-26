@@ -61,7 +61,7 @@ dependencies {
     //图片裁剪（轻量级--）
     api 'com.github.yalantis:ucrop:2.2.2'
     //图片压缩
-    api 'top.zibin:Luban:1.1.7'
+    api 'top.zibin:Luban:1.1.8'
     //图片选择
     implementation files('libs/alipaySdk-20180601.jar')
     //微信支付

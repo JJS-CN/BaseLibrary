@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.simplelibrary.R;
 
 /**
  * 说明：
@@ -26,7 +27,9 @@ public class BaseBottomDialog extends BottomSheetDialogFragment {
     private int mLayoutId;
     public BaseViewHolder mViewHolder;
 
-
+    {
+        setLayoutId(R.layout.dialog_choose_photo_default);
+    }
     /**
      * 设置布局id
      */

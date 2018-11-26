@@ -47,7 +47,7 @@ public class ChoosePhotoUtils {
     private OnChooseListener mChooseListener;
 
     public ChoosePhotoUtils() {
-        sInstance = this;
+
     }
 
     public ChoosePhotoUtils setChooseListener(OnChooseListener chooseListener) {
@@ -74,6 +74,7 @@ public class ChoosePhotoUtils {
     }
 
     private void startChooseActivity() {
+        sInstance = this;
         ChoosePhotoActivity.start(Utils.getApp());
     }
 
@@ -85,7 +86,7 @@ public class ChoosePhotoUtils {
     public static class ChoosePhotoActivity extends AppCompatActivity {
         private File mOriginalFile;//原始地址
 
-        public static void start(final Context context) {
+        private static void start(final Context context) {
             Intent starter = new Intent(context, ChoosePhotoActivity.class);
             starter.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(starter);
@@ -128,7 +129,7 @@ public class ChoosePhotoUtils {
         private void openCrop(Uri originalUri, @IntRange(from = 1) int ratioX, @IntRange(from = 1) int ratioY) {
             UCrop.of(originalUri, Uri.fromFile(getImageFile()))
                     .withAspectRatio(ratioX, ratioY)
-                    .withMaxResultSize(1080, 1080 * ratioY / ratioX)
+                    .withMaxResultSize(1080,  1080*ratioX/ratioY)
                     .start(this);
         }
 
@@ -272,7 +273,7 @@ public class ChoosePhotoUtils {
          * 专为Android4.4设计的从Uri获取文件绝对路径，以前的方法已不好使
          */
         @SuppressLint("NewApi")
-        public String getPath(final Context context, final Uri uri) {
+        private String getPath(final Context context, final Uri uri) {
 
             final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 

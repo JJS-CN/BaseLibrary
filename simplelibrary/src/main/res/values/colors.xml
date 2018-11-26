@@ -14,6 +14,7 @@
 
     <color name="colorTitleText">#312E27</color><!--标题栏文本颜色-->
     <color name="background">#F5F5F5</color><!--activity背景颜色-->
+    <color name="divider">#f1f1f1</color>
 
     <color name="Transparent">#00000000</color><!--透明色-->
     <color name="Black">#1B1B1B</color><!--黑色-->
