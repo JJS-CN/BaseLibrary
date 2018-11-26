@@ -26,6 +26,8 @@ import com.simplelibrary.mvp.IContract;
 import com.simplelibrary.utils.RxAutoDisposeUtils;
 import com.uber.autodispose.AutoDisposeConverter;
 
+import java.io.Serializable;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -159,6 +161,57 @@ public abstract class BaseActivity<P extends BasePersenter<IContract.IView>> ext
         }
         if (mUnBinder != null) {
             mUnBinder.unbind();
+        }
+    }
+
+    /*** 跳转相关 **/
+    public void readyGo(Class<?> clazz, String key, String value, int requestCode) {
+        Bundle bundle = new Bundle();
+        bundle.putString(key, value);
+        readyGo(clazz, bundle, requestCode);
+    }
+
+    public void readyGo(Class<?> clazz, String key, boolean value, int requestCode) {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(key, value);
+        readyGo(clazz, bundle, requestCode);
+    }
+
+    public void readyGo(Class<?> clazz, String key, double value, int requestCode) {
+        Bundle bundle = new Bundle();
+        bundle.putDouble(key, value);
+        readyGo(clazz, bundle, requestCode);
+    }
+
+    public void readyGo(Class<?> clazz, String key, Serializable value, int requestCode) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(key, value);
+        readyGo(clazz, bundle, requestCode);
+    }
+
+    public void readyGo(Class<?> clazz) {
+        readyGo(clazz, null, -1);
+    }
+
+    public void readyGo(Class<?> clazz, Bundle bundle) {
+        readyGo(clazz, bundle, -1);
+    }
+
+    public void readyGo(Class<?> clazz, int requestCode) {
+        readyGo(clazz, null, requestCode);
+    }
+
+    public void readyGo(Class<?> clazz, Bundle bundle, int requestCode) {
+        if (clazz != null) {
+            Intent intent = new Intent(this, clazz);
+            if (null != bundle) {
+                intent.putExtras(bundle);
+            }
+            if (requestCode == -1) {
+                startActivity(intent);
+            } else {
+                startActivityForResult(intent, requestCode);
+            }
         }
     }
 
