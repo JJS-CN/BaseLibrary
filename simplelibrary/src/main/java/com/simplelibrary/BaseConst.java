@@ -1,8 +1,8 @@
 package com.simplelibrary;
 
 import android.support.annotation.AnimRes;
+import android.widget.LinearLayout;
 
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.simplelibrary.dialog.BaseDialog;
 import com.simplelibrary.widget.IHttpStatus;
 
@@ -44,15 +44,12 @@ public class BaseConst {
         public static int mActivityAnimClose = R.anim.anim_activity_close;
 
         //提示
-        public static String mDoubleExitToast = "再按一次退出程序";
+        public static Integer mActivityOrientation = LinearLayout.VERTICAL;//activity的方向  LinearLayout.HORIZONTAL LinearLayout.VERTICAL
+        public static int mDoubleExitToast = R.string.click2ExitToast;
         public static BaseDialog mLoadingDilag = new BaseDialog()
                 .setLayoutId(R.layout.dialog_base_loading)
-                .setCustomListener(new BaseDialog.OnCustomListener() {
-                    @Override
-                    public void onCustom(BaseViewHolder holder, BaseDialog dialog) {
-
-                    }
-                });
+                .hasTransparentForDialog(true)
+                .hasTransparentForWindow(true);
 
         public static IHttpStatus mBaseHttpStatus = new IHttpStatus() {
             @Override
@@ -62,20 +59,21 @@ public class BaseConst {
 
             @Override
             public int NetWorkErrorLayout() {
-                return 0;
+                return R.layout.layout_http_error_network;
             }
 
             @Override
             public int ErrorLayout() {
-                return 0;
+                return R.layout.layout_http_error;
             }
 
             @Override
             public int NothingLayout() {
-                return 0;
+                return R.layout.layout_http_nothing;
             }
 
         };
+
     }
 
     public static final class HttpStatus {

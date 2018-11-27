@@ -25,10 +25,15 @@ public class LoginPersenter extends BasePersenter<LoginContract.View, LoginModel
     public void login(String phone, String sms) {
         mModel.login(phone, sms)
                 .as(bindAutoDispose())
-                .subscribe(new RxObserver<BaseEntity>(mView) {
+                .subscribe(new RxObserver<BaseEntity>(mView,true,true) {
                     @Override
                     protected void onSuccess(BaseEntity data) {
                         mView.isLogin();
+                    }
+
+                    @Override
+                    protected Boolean hasHttpStatus() {
+                        return false;
                     }
                 });
     }

@@ -27,6 +27,8 @@ public class BaseDialog extends DialogFragment {
     private OnCustomListener mCustomListener;
     public BaseViewHolder mViewHolder;
     private boolean isBottom;
+    private boolean windowTransparent;
+    private boolean dialogTransparent = true;
 
 
     /**
@@ -85,24 +87,41 @@ public class BaseDialog extends DialogFragment {
             params.width = WindowManager.LayoutParams.MATCH_PARENT;
             window.setAttributes(params);
         }
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        if (windowTransparent) {
+            Window window = getDialog().getWindow();
+            WindowManager.LayoutParams windowParams = window.getAttributes();
+            windowParams.dimAmount = 0.0f;
+            window.setAttributes(windowParams);
+        }
+        if (dialogTransparent) {
+            getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
 
     }
 
-    public void hasBottomUP(boolean isBottom){
+    public BaseDialog hasTransparentForWindow(boolean windowTransparent) {
+        this.windowTransparent = windowTransparent;
+        return this;
+    }
+
+    public BaseDialog hasTransparentForDialog(boolean dialogTransparent) {
+        this.dialogTransparent = dialogTransparent;
+        return this;
+    }
+
+    public void hasBottomUP(boolean isBottom) {
         this.isBottom = isBottom;
     }
 
 
-
-//    public void hasBottomDialog() {
-//        Window window = getDialog().getWindow();
-//        WindowManager.LayoutParams params = window.getAttributes();
-//        params.gravity = Gravity.BOTTOM;
-//        params.width = WindowManager.LayoutParams.MATCH_PARENT;
-//        window.setAttributes(params);
-//        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//    }
+    //    public void hasBottomDialog() {
+    //        Window window = getDialog().getWindow();
+    //        WindowManager.LayoutParams params = window.getAttributes();
+    //        params.gravity = Gravity.BOTTOM;
+    //        params.width = WindowManager.LayoutParams.MATCH_PARENT;
+    //        window.setAttributes(params);
+    //        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    //    }
 
 
 }

@@ -2,6 +2,7 @@ package com.simplelibrary.base;
 
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.AnimRes;
 import android.support.annotation.ColorInt;
@@ -15,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -71,7 +73,8 @@ public abstract class BaseActivity<P extends BasePersenter> extends AppCompatAct
     private Unbinder mUnBinder;
     protected P mPersenter;
     private BaseDialog mLoadingDilaog = BaseConst.Default.mLoadingDilag;
-    protected boolean hasFragmentResult = true;
+    protected boolean hasFragmentResult = true;//是否需要fragment回调
+    protected Integer mActivityOrientation = BaseConst.Default.mActivityOrientation;//activity的默认方向
 
     /*** httpStatus */
     private FrameLayout contentParent;
@@ -82,6 +85,13 @@ public abstract class BaseActivity<P extends BasePersenter> extends AppCompatAct
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         if (mStatusBarHidden) {
             this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+        if (mActivityOrientation != null) {
+            if (mActivityOrientation == LinearLayout.HORIZONTAL) {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            } else if (mActivityOrientation == LinearLayout.VERTICAL) {
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            }
         }
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
@@ -375,6 +385,9 @@ public abstract class BaseActivity<P extends BasePersenter> extends AppCompatAct
                 layoutId = BaseConst.Default.mBaseHttpStatus.NetWorkErrorLayout();
             } else if (status == BaseConst.HttpStatus.Status_ERROR) {
                 layoutId = BaseConst.Default.mBaseHttpStatus.ErrorLayout();
+            }
+            if (layoutId == 0) {
+                return null;
             }
             statusView = View.inflate(this, layoutId, null);
             FrameLayout.MarginLayoutParams lp = new FrameLayout.MarginLayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);

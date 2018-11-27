@@ -35,9 +35,10 @@ public abstract class BaseObserver<T extends IBaseEntity> implements Observer<T>
 
     public BaseObserver(IContract.IView mView, boolean hasToast, boolean hasLoading, boolean hasHttpStatus) {
         this.mContract = mView;
-        this.hasToast = hasToast;
-        this.hasLoading = hasLoading;
-        this.hasHttpStatus = hasHttpStatus;
+        this.hasToast = hasToast() != null ? hasToast() : hasToast;
+        this.hasLoading = hasLoading() != null ? hasLoading() : hasLoading;
+        this.hasHttpStatus = hasHttpStatus() != null ? hasHttpStatus() : hasHttpStatus;
+
     }
 
     @Override
@@ -58,6 +59,7 @@ public abstract class BaseObserver<T extends IBaseEntity> implements Observer<T>
 
         } else {
             onError(t.code(), t.message());
+            updateStatusView(BaseConst.HttpStatus.Status_ERROR);
         }
     }
 
@@ -67,14 +69,16 @@ public abstract class BaseObserver<T extends IBaseEntity> implements Observer<T>
             e.printStackTrace();
         }
         int code = 1;
-        updateStatusView(BaseConst.HttpStatus.Status_ERROR);
         if (e instanceof HttpException) {
             code = ((HttpException) e).code(); // 状态码 404 500 502
+        }
+        onError(code, "网络请求失败" + code);
+        if (e instanceof HttpException) {
             updateStatusView(BaseConst.HttpStatus.Status_NETWORK);
         } else {
             updateStatusView(BaseConst.HttpStatus.Status_ERROR);
         }
-        onError(code, "网络请求失败" + code);
+
     }
 
     protected void onError(int status, String msg) {
@@ -111,8 +115,16 @@ public abstract class BaseObserver<T extends IBaseEntity> implements Observer<T>
     }
 
 
-    protected void resetHasToast() {
+    protected Boolean hasToast() {
+        return null;
+    }
 
+    protected Boolean hasLoading() {
+        return null;
+    }
+
+    protected Boolean hasHttpStatus() {
+        return null;
     }
 
 }

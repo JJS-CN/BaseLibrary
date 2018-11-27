@@ -33,7 +33,8 @@ public class MvpActivity extends BaseActivity<LoginPersenter> implements LoginCo
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mPersenter.login("18607917251", "");
+                        // showLoadDialog();
+                      mPersenter.login("18607917251", "");
                     }
                 });
     }

@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">My Library</string>
     <drawable name="activity_bg">#fafafa</drawable>
+
+    <string name="click2ExitToast">再按一次退出程序</string>
+
+    <string name="http_nothing">暂无数据</string>
+    <string name="http_error_network">网络异常,请检查网络</string>
+    <string name="http_error">加载异常</string>
+
 </resources>

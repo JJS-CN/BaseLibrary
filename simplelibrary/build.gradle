@@ -70,4 +70,5 @@ dependencies {
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
 
     api 'com.gyf.immersionbar:immersionbar:2.3.3-beta04'
+    implementation 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
 }
