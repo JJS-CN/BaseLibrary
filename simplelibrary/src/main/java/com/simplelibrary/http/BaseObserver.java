@@ -16,24 +16,26 @@ import retrofit2.HttpException;
  */
 
 public abstract class BaseObserver<T extends IBaseEntity> implements Observer<T> {
-    protected IContract.IView mView;
+    protected IContract.IView mContract;
     protected boolean hasToast = true;
     protected boolean hasLoading = true;
     protected boolean hasHttpStatus = false;
 
     public BaseObserver(IContract.IView mView) {
-        this.mView = mView;
+        this(mView, true);
     }
 
     public BaseObserver(IContract.IView mView, boolean hasLoading) {
-        this.mView = mView;
-        this.hasToast = hasLoading;
-        this.hasLoading = hasLoading;
+        this(mView, hasLoading, false);
     }
 
     public BaseObserver(IContract.IView mView, boolean hasLoading, boolean hasHttpStatus) {
-        this.mView = mView;
-        this.hasToast = hasLoading;
+        this(mView, hasLoading, hasLoading, hasHttpStatus);
+    }
+
+    public BaseObserver(IContract.IView mView, boolean hasToast, boolean hasLoading, boolean hasHttpStatus) {
+        this.mContract = mView;
+        this.hasToast = hasToast;
         this.hasLoading = hasLoading;
         this.hasHttpStatus = hasHttpStatus;
     }
@@ -77,8 +79,8 @@ public abstract class BaseObserver<T extends IBaseEntity> implements Observer<T>
 
     protected void onError(int status, String msg) {
         dismissLoadDialog();
-        if (hasToast && mView != null) {
-            mView.showShortToast(msg);
+        if (hasToast && mContract != null) {
+            mContract.showShortToast(msg);
         }
     }
 
@@ -88,14 +90,14 @@ public abstract class BaseObserver<T extends IBaseEntity> implements Observer<T>
     }
 
     protected void showLoadDialog() {
-        if (mView != null && hasLoading) {
-            mView.showLoadDialog();
+        if (mContract != null && hasLoading) {
+            mContract.showLoadDialog();
         }
     }
 
     protected void dismissLoadDialog() {
-        if (mView != null) {
-            mView.dismissLoadDialog();
+        if (mContract != null) {
+            mContract.dismissLoadDialog();
         }
     }
 
@@ -103,8 +105,8 @@ public abstract class BaseObserver<T extends IBaseEntity> implements Observer<T>
 
 
     protected void updateStatusView(int status) {
-        if (mView != null && hasHttpStatus) {
-            mView.showHttpStatusView(status);
+        if (mContract != null && hasHttpStatus) {
+            mContract.showHttpStatusView(status);
         }
     }
 

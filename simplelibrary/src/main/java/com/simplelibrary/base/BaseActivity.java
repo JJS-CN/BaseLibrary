@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.AnimRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -37,7 +38,7 @@ import butterknife.Unbinder;
  * Created by jjs on 2018/11/23
  */
 
-public abstract class BaseActivity<P extends BasePersenter<IContract.IView>> extends AppCompatActivity implements IContract.IView {
+public abstract class BaseActivity<P extends BasePersenter> extends AppCompatActivity implements IContract.IView {
 
     /*** 两次点击提示退出 */
     private long mStart;
@@ -70,6 +71,7 @@ public abstract class BaseActivity<P extends BasePersenter<IContract.IView>> ext
     private Unbinder mUnBinder;
     protected P mPersenter;
     private BaseDialog mLoadingDilaog = BaseConst.Default.mLoadingDilag;
+    protected boolean hasFragmentResult = true;
 
     /*** httpStatus */
     private FrameLayout contentParent;
@@ -119,6 +121,7 @@ public abstract class BaseActivity<P extends BasePersenter<IContract.IView>> ext
             mDecorView.setBackgroundColor(BaseConst.Default.mActivityBackground);
         }
         initView();
+        mPersenter = createPersenter();//todo 考虑上移到initView之前实例化
         loadData();
     }
 
@@ -409,6 +412,11 @@ public abstract class BaseActivity<P extends BasePersenter<IContract.IView>> ext
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             onActivityResultOK(requestCode, data);
+        }
+        if (hasFragmentResult) {
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                fragment.onActivityResult(requestCode, resultCode, data);
+            }
         }
     }
 

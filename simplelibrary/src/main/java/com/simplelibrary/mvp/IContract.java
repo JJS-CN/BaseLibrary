@@ -33,5 +33,13 @@ public interface IContract {
         void subscribe();
 
         void unSubscribe();
+
+        <T> AutoDisposeConverter<T> bindAutoDispose();
+    }
+
+    interface IModel {
+        void subscribe();
+
+        void unSubscribe();
     }
 }

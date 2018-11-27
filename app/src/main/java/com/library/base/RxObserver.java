@@ -1,5 +1,7 @@
 package com.library.base;
 
+import android.support.annotation.Nullable;
+
 import com.simplelibrary.http.BaseObserver;
 import com.simplelibrary.mvp.IContract;
 
@@ -10,8 +12,16 @@ import com.simplelibrary.mvp.IContract;
 
 public abstract class RxObserver<T extends BaseEntity> extends BaseObserver<T> {
 
-    public RxObserver(IContract.IView mView) {
+    public RxObserver(@Nullable IContract.IView mView) {
         super(mView);
     }
 
+
+    public RxObserver(IContract.IView mView, boolean hasLoading) {
+        super(mView, hasLoading);
+    }
+
+    public RxObserver(IContract.IView mView, boolean hasLoading, boolean hasHttpStatus) {
+        super(mView, hasLoading, hasHttpStatus);
+    }
 }
