@@ -13,7 +13,6 @@ import com.simplelibrary.widget.IHttpStatus;
 
 public class BaseConst {
 
-
     public static final class Default {
         //是否开启debug模式---控制关键性log输出;接口请求地址
         public static boolean isDebug = false;

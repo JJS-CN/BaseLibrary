@@ -7,7 +7,7 @@ android {
     }*/
 
     defaultConfig {
-        applicationId "com.baselibrary"
+        applicationId "com.library"
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1

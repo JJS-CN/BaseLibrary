@@ -1,7 +1,5 @@
 package com.library;
 
-import android.util.Log;
-
 import com.library.base.LoginActivity;
 import com.simplelibrary.BaseConst;
 
@@ -12,10 +10,8 @@ import com.simplelibrary.BaseConst;
 
 public class Const extends BaseConst {
     static {
-        Log.e("eee", "static Start");
         Default.isDebug = true;
         Default.Host_Http = "http://www.oajxs.com/";
         Default.loginAct = LoginActivity.class;
-        Log.e("eee", "static End");
     }
 }
