@@ -7,7 +7,7 @@ import com.simplelibrary.dialog.BaseDialog;
 import com.simplelibrary.widget.IHttpStatus;
 
 /**
- * 说明：
+ * 说明：每个项目请继承此类；放在包名根目录下最佳；参数修改请务必在{静态代码块}中进行修改
  * Created by jjs on 2018/11/22
  */
 

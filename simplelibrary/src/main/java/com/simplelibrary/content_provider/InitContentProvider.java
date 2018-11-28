@@ -22,7 +22,7 @@ import java.util.Enumeration;
 import dalvik.system.DexFile;
 
 /**
- * 说明：框架初始化
+ * 说明：框架初始化---Android启动机制
  * Created by jjs on 2018/11/27
  */
 
@@ -30,6 +30,7 @@ public class InitContentProvider extends ContentProvider {
     @Override
     public boolean onCreate() {
         Utils.init(getContext());
+        /*** java 类加载机制 */
         getClassName2(AppUtils.getAppPackageName());
         if (BaseConst.Default.isDebug) {
             //开启严苛模式，系统将在运行时严格的对io等操作进行检查。所以只在开发模式开启

@@ -26,6 +26,7 @@ import com.simplelibrary.R;
 import com.simplelibrary.dialog.BaseDialog;
 import com.simplelibrary.mvp.BasePersenter;
 import com.simplelibrary.mvp.IContract;
+import com.simplelibrary.mvp.ListPersenter;
 import com.simplelibrary.utils.RxAutoDisposeUtils;
 import com.uber.autodispose.AutoDisposeConverter;
 
@@ -132,6 +133,9 @@ public abstract class BaseActivity<P extends BasePersenter> extends AppCompatAct
         }
         initView();
         mPersenter = createPersenter();//todo 考虑上移到initView之前实例化
+        if (mPersenter!=null&&mPersenter instanceof ListPersenter){
+            ((ListPersenter) mPersenter).bindRecycler();
+        }
         loadData();
     }
 
